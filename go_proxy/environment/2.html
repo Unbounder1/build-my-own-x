@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quantum Banana Status</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #eee;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .box {
+      border: 2px dashed #0ff;
+      padding: 2rem;
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { border-color: #0ff; }
+      50% { border-color: #f0f; }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Interdimensional Chicken Index</h1>
+    <p>🪐 Status: <strong>Wobbling through spacetime</strong></p>
+    <p>🍕 Flavor Coefficient: <span id="number">2</span></p>
+  </div>
+</body>
+</html>
