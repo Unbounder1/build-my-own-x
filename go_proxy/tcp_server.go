@@ -1,9 +1,20 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
+	"log"
 	"net"
+	"strings"
 )
+
+type Packet struct {
+	Request    string
+	Path       string
+	Host       string
+	Connection string
+}
 
 // Main tcp handler loop
 func main() {
@@ -25,15 +36,35 @@ func main() {
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 
-	buf := make([]byte, 1024)
-	_, err := conn.Read(buf)
-	if err != nil {
-		fmt.Println(err)
-		return
+	reader := bufio.NewReader(conn)
+
+	var cur_packet Packet
+
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			log.Printf("Error reading from connection: %v", err)
+		}
+		fmt.Println(line)
+		lineArr := strings.Split(line, " ")
+		switch lineArr[0] {
+		case "GET":
+			cur_packet.Request = "GET"
+			cur_packet.Host = lineArr[1]
+		case "POST":
+			cur_packet.Request = "GET"
+			cur_packet.Host = lineArr[1]
+		case "Host:":
+			cur_packet.Host = lineArr[1]
+		}
+
 	}
 
 	// Print the incoming data
-	fmt.Printf("Received: %s", buf)
+	// fmt.Printf("Received: %s", buf)
 
 	response_line := "HTTP/1.1 200 OK\r\n"
 
