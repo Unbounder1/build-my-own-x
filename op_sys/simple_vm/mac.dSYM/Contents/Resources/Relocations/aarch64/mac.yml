@@ -1,0 +1,16 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     mac
+relocations:
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003CC4, symSize: 0xB0 }
+  - { offset: 0x3F, size: 0x8, addend: 0x0, symName: _running, symObjAddr: 0x2A8, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offset: 0x5B, size: 0x8, addend: 0x0, symName: _program, symObjAddr: 0x2B0, symBinAddr: 0x100003F78, symSize: 0x0 }
+  - { offset: 0x8F, size: 0x8, addend: 0x0, symName: _ip, symObjAddr: 0xB24, symBinAddr: 0x100008008, symSize: 0x0 }
+  - { offset: 0xA4, size: 0x8, addend: 0x0, symName: _sp, symObjAddr: 0x2AC, symBinAddr: 0x100008004, symSize: 0x0 }
+  - { offset: 0xC0, size: 0x8, addend: 0x0, symName: _stack, symBinAddr: 0x10000802C, symSize: 0x0 }
+  - { offset: 0xE2, size: 0x8, addend: 0x0, symName: _r, symBinAddr: 0x10000800C, symSize: 0x0 }
+  - { offset: 0xFE, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003CC4, symSize: 0xB0 }
+  - { offset: 0x134, size: 0x8, addend: 0x0, symName: _eval, symObjAddr: 0xB0, symBinAddr: 0x100003D74, symSize: 0x1A8 }
+  - { offset: 0x19E, size: 0x8, addend: 0x0, symName: _fetch, symObjAddr: 0x26C, symBinAddr: 0x100003F30, symSize: 0x18 }
+  - { offset: 0x1B7, size: 0x8, addend: 0x0, symName: _pop, symObjAddr: 0x284, symBinAddr: 0x100003F48, symSize: 0x24 }
+...
