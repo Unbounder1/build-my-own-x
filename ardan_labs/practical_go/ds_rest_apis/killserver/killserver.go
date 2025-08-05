@@ -1,0 +1,52 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"io/fs"
+	"log/slog"
+	"os"
+)
+
+func main() {
+	err := KillServer("server.pid")
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		if errors.Is(err, fs.ErrNotExist) {
+			fmt.Println("not found")
+		}
+		for e := err; e != nil; e = errors.Unwrap(e) {
+			fmt.Printf("> %s\n", e)
+		}
+	}
+}
+
+func KillServer(pidFile string) error {
+	file, err := os.Open(pidFile)
+	if err != nil {
+		return err
+	}
+	// defer happens when function exits no matter what happens
+	// defer works at the function level (dont put in loops)
+	// defers are executed in reverse order (stack)
+
+	defer func() {
+		if err := file.Close(); err != nil {
+			slog.Warn("close", "file", pidFile, "error", err)
+		}
+	}()
+	var pid int
+	if _, err := fmt.Fscanf(file, "%d", &pid); err != nil {
+		return fmt.Errorf("%q - bad pid: %w", pidFile, err) // %w is just wrappign the error only for error
+	}
+
+	slog.Info("killing", "pid", pid)
+
+	if err := os.Remove(pidFile); err != nil {
+		// Not failing, only warning
+		slog.Warn("delete", "file", pidFile, "error", err)
+	}
+
+	return nil
+
+}
