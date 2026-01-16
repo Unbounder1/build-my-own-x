@@ -136,3 +136,19 @@ type Item struct {
 	X int
 	Y int
 }
+
+/*
+
+Thought exercise
+	func Sort(s Sortable) {
+		// ...
+	}
+
+	type Sortable interface {
+		Less(i, j int) bool // where i, j is the index, this bypasses the default type
+		Swap(i, j int)
+		Len() int
+
+	}
+
+*/
