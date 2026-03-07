@@ -21,7 +21,7 @@ def simulateSpread(grid: List[List[int]], state: List[List[int]], T: int, D: int
         for j in range(m):
             
             ## Skip immune or dead
-            if grid[i][j] == 'I' or grid[i][j] == '#':
+            if grid[i][j] == 'I' or grid[i][j] == '#' or not (grid[i][j] == '.' or grid[i][j] == 'X'):
                 continue 
 
             ## Check infectedness
@@ -55,7 +55,7 @@ def simulateSpread(grid: List[List[int]], state: List[List[int]], T: int, D: int
 
                 case 'X':
                     state[i][j] -= 1
-                    if (state[i][j] == -1):
+                    if (not state[i][j]):
                         grid[i][j] = 'I'
     
     return deathCount
@@ -63,13 +63,16 @@ def simulateSpread(grid: List[List[int]], state: List[List[int]], T: int, D: int
 
 def epidemicSpreadDays(grid: List[List[int]], T: int, D: int, K: int) -> int:
     if (not len(grid) or not len(grid[0])):
-        return
+        return -1
+
+    if (checkInfection(grid)):
+        return 0, 0
     
-    count = 0
+    count = 1
     totalDeaths = 0
     state = deepcopy(grid)
 
-    # fill out states (-1 ignore, 0 switch to immune)
+    # fill out states (0 ignore, 1 switch to immune)
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             if grid[i][j] == 'X':
@@ -77,7 +80,7 @@ def epidemicSpreadDays(grid: List[List[int]], T: int, D: int, K: int) -> int:
             else:
                 if grid[i][j] == '#':
                     totalDeaths += 1
-                state[i][j] = -1
+                state[i][j] = 0
     
     while (True):
         # Add state tracking for infection time
@@ -88,13 +91,13 @@ def epidemicSpreadDays(grid: List[List[int]], T: int, D: int, K: int) -> int:
 
 def main():
     # 2d grid input
-    grid = [['.', 'X', 'X','I'],
-            ['.', 'X', 'X','I'],
-            ['#', 'X', '.','X'],
+    grid = [['.', '.', 'X','I'],
+            ['.', 'I', 'X','I'],
+            ['#', 'I', 'I','I'],
             ['.', '.', '.','.']]
     T = 2
     D = 1
-    K = 4
+    K = 2
 
     days, deaths = epidemicSpreadDays(grid, T, D, K)
 

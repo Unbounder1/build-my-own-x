@@ -1,0 +1,3 @@
+Part 1 Convert beats into musical note durations in standard notation. Input: "a 1 0 1 1" Output: "a2 a4 a4" Here, a is the instrument name. The sequence of 0 and 1 represents rhythm. "1 0" means a half note (duration of 2 beats), "1 1" means two quarter notes. The test cases also include eighth notes and sixteenth notes.
+
+Part 2 Convert beats from multiple instruments into musical note durations, grouping instruments that have the same note duration at the same beat. Input: "a 1 0 1 1", "b 0 0 1 0" Output: "a2 [a,b]4 a4" If multiple instruments have notes of the same length starting at the same beat, group them together like [a,b]4. Test cases include scenarios with three or four instruments.
